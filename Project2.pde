@@ -1,83 +1,84 @@
-/*
-    DIT OOP Assignment 2 Starter Code
-    =================================
-    
-    Loads player properties from an xml file
-    See: https://github.com/skooter500/DT228-OOP 
-*/
-
-ArrayList<Player> players = new ArrayList<Player>();
-boolean[] keys = new boolean[526];
-
+int stage;
+PFont startfont;
+PFont normalfont;
+PImage gameplan;
 void setup()
 {
-  size(500, 500);
-  setUpPlayerControllers();
+  size(800,800);
+  frameRate(60);
+  smooth();
+  stage = 1;
 }
 
 void draw()
 {
-  for(Player player:players)
+  switch(stage)
   {
-    player.update();
-    player.display();
-  }
-}
-
-void keyPressed()
-{
-  keys[keyCode] = true;
-}
-
-void keyReleased()
-{
-  keys[keyCode] = false;
-}
-
-boolean checkKey(char theKey)
-{
-  return keys[Character.toUpperCase(theKey)];
-}
-
-char buttonNameToKey(XML xml, String buttonName)
-{
-  String value =  xml.getChild(buttonName).getContent();
-  if ("LEFT".equalsIgnoreCase(value))
-  {
-    return LEFT;
-  }
-  if ("RIGHT".equalsIgnoreCase(value))
-  {
-    return RIGHT;
-  }
-  if ("UP".equalsIgnoreCase(value))
-  {
-    return UP;
-  }
-  if ("DOWN".equalsIgnoreCase(value))
-  {
-    return DOWN;
-  }
-  //.. Others to follow
-  return value.charAt(0);  
-}
-
-void setUpPlayerControllers()
-{
-  XML xml = loadXML("arcade.xml");
-  XML[] children = xml.getChildren("player");
-  int gap = width / (children.length + 1);
+    case 1:
+      splash();
+      break;
+    case 2:
+     game();
+      break;
+    case 3:
+      help();
+      break;
+    case 4:
+      help();
+      break;
+   }
   
-  for(int i = 0 ; i < children.length ; i ++)  
-  {
-    XML playerXML = children[i];
-    Player p = new Player(
-            i
-            , color(random(0, 255), random(0, 255), random(0, 255))
-            , playerXML);
-    int x = (i + 1) * gap;
-    p.pos.x = x;
-    p.pos.y = 300;
-   players.add(p);         
-  }
 }
+void game()
+{
+  gameplan = loadImage("background.png");
+  gameplan.resize(800,800);
+  background(gameplan);
+}
+void splash()
+{
+    background(0);
+    startfont = createFont("start.ttf",40);
+    normalfont = createFont("start.ttf",25);
+    textFont(startfont);
+    text("Zombie Destruction",100,300);
+    textFont(normalfont);
+    text("Press Space to start",200,400);
+    text("Press H for help",250,500);
+    if(keyPressed)
+    {
+      if(key == 'h' || key == 'H')
+      {
+        stage = 4;
+      }
+    }
+    if(keyPressed)
+    {
+      if(key == ' ')
+      {
+        stage = 2;
+      }
+    }
+}
+void help()
+{
+    background(0);
+    startfont = createFont("start.ttf",40);
+    normalfont = createFont("start.ttf",25);
+    textFont(normalfont);
+    text("Zombie Destruction",100,300);
+    textFont(normalfont);
+    text("Press Space to go back",200,400);
+    if(keyPressed)
+    {
+      if(key == 'b')
+      {
+        stage = 1;
+      }
+      else
+      {
+        stage = 4;
+      }
+    }
+}
+

@@ -2,12 +2,19 @@ int stage;
 PFont startfont;
 PFont normalfont;
 PImage gameplan;
+
+boolean[] keys = new boolean[526];
+
+ArrayList<GameObjects> objects = new ArrayList<GameObjects>();
+
 void setup()
 {
   size(800,800);
   frameRate(60);
-  smooth();
   stage = 1;
+  objects.add(new Player(400,600));
+
+  smooth();
 }
 
 void draw()
@@ -27,14 +34,25 @@ void draw()
       help();
       break;
    }
-  
+
 }
+
 void game()
 {
   gameplan = loadImage("background.png");
   gameplan.resize(800,800);
   background(gameplan);
+  for(int i = 0;i <objects.size(); i++)
+  {
+    objects.get(i).move();
+    objects.get(i).display();
+  }
+    
+
+
+
 }
+
 void splash()
 {
     background(0);
@@ -81,4 +99,3 @@ void help()
       }
     }
 }
-

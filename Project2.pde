@@ -2,10 +2,15 @@ int stage;
 PFont startfont;
 PFont normalfont;
 PImage gameplan;
+import ddf.minim.*;
 
 boolean[] keys = new boolean[526];
 
 ArrayList<GameObjects> objects = new ArrayList<GameObjects>();
+
+Minim minim;
+AudioPlayer theme;
+AudioPlayer game;
 
 void setup()
 {
@@ -13,7 +18,9 @@ void setup()
   frameRate(60);
   stage = 1;
   objects.add(new Player(400,600));
-
+  minim = new Minim(this);
+  theme = minim.loadFile("theme.mp3");
+  game = minim.loadFile("game.mp3");
   smooth();
 }
 
@@ -39,6 +46,8 @@ void draw()
 
 void game()
 {
+  theme.pause();
+  game.play();
   gameplan = loadImage("background.png");
   gameplan.resize(800,800);
   background(gameplan);
@@ -48,21 +57,21 @@ void game()
     objects.get(i).display();
   }
     
-
-
-
 }
 
 void splash()
 {
     background(0);
+    theme.play(); 
     startfont = createFont("start.ttf",40);
     normalfont = createFont("start.ttf",25);
     textFont(startfont);
     text("Zombie Destruction",100,300);
     textFont(normalfont);
     text("Press Space to start",200,400);
+    fill(0,255,0);
     text("Press H for help",250,500);
+    fill(255);
     if(keyPressed)
     {
       if(key == 'h' || key == 'H')
@@ -83,10 +92,20 @@ void help()
     background(0);
     startfont = createFont("start.ttf",40);
     normalfont = createFont("start.ttf",25);
+    textFont(startfont);
+    text("Zombie Destruction",100,250);
     textFont(normalfont);
-    text("Zombie Destruction",100,300);
-    textFont(normalfont);
-    text("Press Space to go back",200,400);
+    fill(255,0,0);
+    text("A -------> LEFT",230,350);
+    fill(0,255,0);
+    text("D -------> RIGHT",230,400);
+    fill(0,0,255);
+    text("W -------> JUMP",230,450);
+    fill(255,255,0);
+    text("SPACE ---> SHOOT",230,500);
+    textFont(startfont);
+    fill(255);
+    text("Press b to go back",100,600);
     if(keyPressed)
     {
       if(key == 'b')

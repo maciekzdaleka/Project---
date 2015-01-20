@@ -11,6 +11,7 @@ ArrayList<GameObjects> objects = new ArrayList<GameObjects>();
 Minim minim;
 AudioPlayer theme;
 AudioPlayer game;
+AudioPlayer jump;
 
 void setup()
 {
@@ -18,9 +19,11 @@ void setup()
   frameRate(60);
   stage = 1;
   objects.add(new Player(400,600));
+  objects.add(new Bullet());
   minim = new Minim(this);
   theme = minim.loadFile("theme.mp3");
   game = minim.loadFile("game.mp3");
+  jump = minim.loadFile("Jump.wav");
   smooth();
 }
 

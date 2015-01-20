@@ -5,11 +5,12 @@ class GameObjects
  PVector position;
  PVector velocity;
  PVector forward;
-   
+ 
+ 
    GameObjects()
   {
    alive=true;
-   position= new PVector(400,600);
+   position= new PVector(0,0);
    velocity = new PVector(0,0);
    forward = new PVector(0,0);
   }

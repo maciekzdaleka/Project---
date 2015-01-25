@@ -48,9 +48,11 @@ void display()
    line(hx+15,hy+55,hx,hy+80);
    line(hx+15,hy+55,hx+30,hy+80);
    line(hx+15,hy+40,hx+hand,hy+30);
-
-
-    rotate(theta);
+   fill(0,0,255);
+   ellipse(hx+7,hy+6,5,5);
+   ellipse(hx+24,hy+6,5,5);
+   triangle(hx+10, hy+15, hx+15, hy+10, hx+20, hy+15);
+   rotate(theta);
    
     popMatrix();
 }

@@ -1,28 +1,37 @@
 class Bullet extends GameObjects
 {
- 
-   float  speed,playerx,playery;
-  int fireDirection;
+
   Bullet() 
   {
-    position.x =400;
-    position.y = 620;
-
-    speed = 10;
-  }
-  void display() {
    
- println(fireDirection);  
-    position.x = position.x + cos(fireDirection/180*PI)*speed;
-    position.y = position.y + sin(fireDirection/180*PI)*speed;
-    ellipse(position.x, position.y, 30, 10);
+  }
+  void move()
+   { 
+
+    forward.x = -cos(theta)* speed;
+    forward.y =  sin(theta)* speed;
+    speed = 10;
+    PVector velocity = PVector.mult(forward, speed);
+    position.add(forward);
     
-    if (position.x  > 0 && position.x  < width && position.y > 0 && position.x  < height) {
+    if (position.x  > -30 && position.x  < width ) 
+    {
+      alive = true;
     }
     else {
-    // objects.remove();
+      alive = false;
     }
   }
- 
+  void display() {
+    //println(fireDirection);
+    pushMatrix();
+    translate(position.x,position.y);
+    fill(255,0,0);
+    ellipse(45,55,15, 5);
+    println(position.x);
+    popMatrix();
+    
+  }
+  
 }
 

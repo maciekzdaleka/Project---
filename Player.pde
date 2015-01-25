@@ -1,29 +1,24 @@
 class Player extends GameObjects
 {
-
-  PImage playerr;
+  
   float direction;
   float gravity = .5;
-  float jumpSpeed = 10;
+  float jumpSpeed = 11;
   float up;
   float buletCounter;
   boolean alive = true;
-  int fireDirection;
-  
-
+  float hand;
 
   Player(float x ,float y)
   {
-    playerr = loadImage("sir3.png");
     position.x = x;
     position.y = y;
+    theta = 0;
   }
-
-
 
 void display()
 {  
-  if (position.y < 600)
+  if (position.y < 340)
   {
     velocity.y += gravity;
     position.add(velocity);
@@ -33,23 +28,47 @@ void display()
   {
     velocity.y = 0;
   }
-  if (position.y >= 600 && up != 0)
+  if (position.y >= 340 && up != 0)
   {
     velocity.y = -jumpSpeed;
     position.add(velocity);
     up = 0;
   }
-    println(x); 
     pushMatrix();
-    translate(position.x, position.y);
-    scale(direction, 1);
-    image(playerr, 0, 0);
+    translate(position.x,position.y);
+    noStroke();
+   fill(252,130,244); //eyball color
+   rect(hx,hy,30,20); //face
+   fill(255,255,0);
+   triangle(hx, hy, hx+5, hy- 10, hx+10, hy);
+   triangle(hx+10, hy, hx+15, hy- 10, hx+20, hy);
+   triangle(hx+20, hy, hx+25, hy- 10, hx+30, hy);
+   stroke(255);
+   line(hx+15,hy+20,hx+15,(hy+20)+35);
+   line(hx+15,hy+55,hx,hy+80);
+   line(hx+15,hy+55,hx+30,hy+80);
+   line(hx+15,hy+40,hx+hand,hy+30);
+
+
+    rotate(theta);
+   
     popMatrix();
 }
 
+  boolean intersect(Zombie s)
+  {
+  if (s.position.x < position.x ) {return false;}
+  if (s.position.x > position.x){ return false;}
+  if (s.position.y +80 < position.y ){ return false;}
+  if (s.position.y > position.y + 80){ return false;}
+  else
+  {
+     return true;
+  }
+ }
 void move()
 {
-  
+
 forward.x = 5;
   if(keyPressed)
   {
@@ -58,12 +77,16 @@ forward.x = 5;
       case 'd':
       position.add(forward);
       direction = -1;
-     fireDirection = 0;
+     fireDirection = true;
+     theta  =  179.07;
+     hand = 30;
         break;
       case 'a':
       position.sub(forward);
       direction = 1;
-      fireDirection = 180;
+      fireDirection = false;
+      theta = 0;
+      hand = 0;
         break;
       case 'w':
       jump.play();
@@ -72,15 +95,28 @@ forward.x = 5;
         break;
         case ' ':
         if(alive == true)
-        {
-          objects.add( new Bullet());    
+        { 
+          Bullet bullet = new Bullet();
+          bullet.position = position.get();    
+          bullet.theta = theta;
+          objects.add(bullet);
           alive =false;
           buletCounter = 0;
+       if (position.x  > 0 && position.x  < width && position.y > 0 && position.x  < height) {
+            offset= true;
+       }
+       else {
+         offset = false;
+         }
+          if(offset = false)
+          {
+            objects.remove(bullet);
+          }
         }
-        if(alive == false)
+       if(alive == false)
         {
           buletCounter ++;
-          if(buletCounter == 5)
+          if(buletCounter == 10 )
           {
             alive = true;
           }
@@ -89,6 +125,7 @@ forward.x = 5;
     }
   }
 }
+
 
 
 }

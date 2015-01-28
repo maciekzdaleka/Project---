@@ -79,19 +79,7 @@ void gameover()
   textFont(startfont);
   text("Game Over :(",200,250);
   text("Score:"+score,250,350);
-  if(keyPressed)
-    {
-      if(key == 'b')
-      {
-        stage = 1;
-        lives = 3;
-        score = 0;
-      }
-      else
-      {
-        stage = 5;
-      }
-    }
+  
   
 }
 

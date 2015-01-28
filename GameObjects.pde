@@ -9,8 +9,7 @@ class GameObjects
  float speed;
  float hx = 20;
  float hy = 20;
- boolean offset;
- boolean reset;
+ 
  
    GameObjects()
   {
@@ -18,7 +17,6 @@ class GameObjects
    position= new PVector(0,0);
    velocity = new PVector(0,0);
    forward = new PVector(0,0);
-   fireDirection = false;
   }
   
   void display()

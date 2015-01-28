@@ -21,10 +21,7 @@ class BigZombie extends GameObjects
     {
       position.x = (random(800,1200))+100;  
     }
-    if(lives == 0)
-    {
-      reset = true;
-    }
+ 
     
   }
   

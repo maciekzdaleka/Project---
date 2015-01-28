@@ -96,16 +96,16 @@ forward.x = 5;
           buletCounter = 0;
           shoot.play();
           shoot.rewind();
-       if (position.x  > 0 && position.x  < width && position.y > 0 && position.x  < height) {
-            offset= true;
-       }
-       else {
-         offset = false;
-         }
-          if(offset = false)
-          {
-            objects.remove(bullet);
-          }
+//       if (position.x  > 0 && position.x  < width && position.y > 0 && position.x  < height) {
+//            offset= true;
+//       }
+//       else {
+//         offset = false;
+//         }
+//          if(offset = false)
+//          {
+//            objects.remove(bullet);
+//          }
         }
        if(alive == false)
         {

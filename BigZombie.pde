@@ -8,12 +8,11 @@ class BigZombie extends GameObjects
     position.y = random(350,350);
   }
   
-  
   void move()
   {
    
-   position.add(velocity); 
-      if (position.x  > width || position.x > 0 )
+    position.add(velocity); 
+    if (position.x  > width || position.x > 0 )
     {
       velocity.x = -2;
     }
@@ -22,7 +21,6 @@ class BigZombie extends GameObjects
       position.x = (random(800,1200))+100;  
     }
  
-    
   }
   
   void display()
@@ -30,7 +28,6 @@ class BigZombie extends GameObjects
     pushMatrix();
     noStroke();
     translate(position.x,position.y);
-    
     fill(0,255,0);
     rect(0,0,30,30);
     fill(random(0,255),random(0,255),random(0,255));
@@ -45,11 +42,11 @@ class BigZombie extends GameObjects
     rect(20,80,10,10);
     popMatrix();
   }
-   void touched()
-   {
+  
+  void touched()
+  {
      position.x = (random(800,1200));
-   }
-
+  }
 }
   
 

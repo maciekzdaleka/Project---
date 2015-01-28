@@ -1,25 +1,23 @@
 class Zombie extends GameObjects
 {
-  
   Zombie()
   {
     position.x = (random(-500,-50));
     position.y = random(350,350);
   }
   
-  
   void move()
   {
    
    position.add(velocity); 
-      if (position.x  < width || position.x < 0 )
-    {
+   if (position.x  < width || position.x < 0 )
+   {
       velocity.x = 2;
-    }
-    if(position.x > 800)
-    {
+   }
+   if(position.x > 800)
+   {
       position.x = (random(-500,-50));  
-    }
+   }
     
   }
   
@@ -28,7 +26,6 @@ class Zombie extends GameObjects
     pushMatrix();
     noStroke();
     translate(position.x,position.y);
-    
     fill(0,255,0);
     rect(0,0,30,30);
     fill(random(0,255),random(0,255),random(0,255));
@@ -43,9 +40,9 @@ class Zombie extends GameObjects
     rect(20,80,10,10);
     popMatrix();
   }
-   void touched()
-   {
+  
+  void touched()
+  {
      position.x = (random(-500,-50));
-   }
-
+  }
 }

@@ -6,8 +6,7 @@ class Bullet extends GameObjects
     speed = 20;
   }
   void move()
-   { 
-
+  { 
     forward.x = -cos(theta)* speed;
     forward.y =  sin(theta)* speed;
     PVector velocity = PVector.mult(forward, speed);
@@ -17,8 +16,9 @@ class Bullet extends GameObjects
     {
       alive = true;
     }
-    else {
-      alive = false;
+    else 
+    {
+       alive = false;
        position.x = -100;
        position.y = -100;
     }
@@ -29,15 +29,17 @@ class Bullet extends GameObjects
     position.x = -100;
     position.y = -100;
   }
-  void display() {
-    //println(fireDirection);
+  
+  void display()
+  {
     pushMatrix();
+    noStroke();
     translate(position.x,position.y);
     fill(255,0,0);
     ellipse(45,55,15, 5);
     popMatrix();
-    
   }
+  
   void explosion()
   {
     explosion.play();
@@ -54,7 +56,5 @@ class Bullet extends GameObjects
     ellipse(20,50,20,20);
     popMatrix();
   }
-
-  
 }
 

@@ -1,11 +1,9 @@
 class Health extends GameObjects
 {
-  
    Health()
    {
       position.y = (random(-500,-50));  
       position.x = (random(50,750)); 
-     
    }
    
    void display()
@@ -21,24 +19,23 @@ class Health extends GameObjects
      startfont = createFont("start.ttf",20);
      textFont(startfont);
      text("L",15,25);
-     popMatrix();
-     
-     
+     popMatrix(); 
    }
    
    void move()
    {
-     position.add(velocity); 
-    if (position.y  < height || position.y < 0 )
-    {
-      velocity.y = 2;
-    }
-    if(position.y > 400)
-    {
-      alive = false;
-      position.y = (random(-500,-50));  
-      position.x = (random(50,750));
-    }
+      position.add(velocity); 
+      
+      if (position.y  < height || position.y < 0 )
+      {
+        velocity.y = 2;
+      }
+      if(position.y > 400)
+      {
+        alive = false;
+        position.y = (random(-500,-50));  
+        position.x = (random(50,750));
+      }
    }
    
    void touched()

@@ -1,7 +1,12 @@
+/*
+Maciej Piotrowski
+DT228/2
+C13470112
+*/
+
 int stage;
 PFont startfont;
 PFont normalfont;
-PImage gameplan;
 import ddf.minim.*;
 int score = 0;
 int lives = 3;
@@ -16,7 +21,7 @@ ArrayList<BigZombie> bigzombies = new ArrayList<BigZombie>();
 ArrayList<Health> healths = new ArrayList<Health>();
 
 
-Minim minim;
+Minim minim;//sound
 AudioPlayer theme;
 AudioPlayer game;
 AudioPlayer jump;
@@ -37,7 +42,7 @@ void setup()
      players.add(player);
   }
   minim = new Minim(this);
-  theme = minim.loadFile("theme.mp3");
+  theme = minim.loadFile("theme.mp3");//sound loading
   game = minim.loadFile("game.mp3");
   jump = minim.loadFile("Jump.wav");
   explosion = minim.loadFile("explosion.wav");
@@ -49,7 +54,7 @@ void setup()
 
 void draw()
 {
-  switch(stage)
+  switch(stage)//diffrent stages in the game
   {
     case 1:
       splash();
@@ -69,7 +74,7 @@ void draw()
    }
 
 }
-void gameover()
+void gameover()//end screen
 {
   game.pause();
   gameover.play();
@@ -78,12 +83,10 @@ void gameover()
   startfont = createFont("start.ttf",40);
   textFont(startfont);
   text("Game Over :(",200,250);
-  text("Score:"+score,250,350);
-  
-  
+  text("Score:"+score,250,350); 
 }
 
-void game()
+void game()//main game
 {
   theme.pause();
   game.play();
@@ -102,6 +105,10 @@ void game()
   line(250,100,250,300);
   line(200,150,300,150);
   rect(400,220,60,80,50,50,0,0);
+  rect(500,270,70,30);
+  rect(510,240,50,30);
+  line(535,200,535,240);
+  line(520,220,550,220);
   normalfont = createFont("start.ttf",10);
   textFont(normalfont);
   fill(255);
@@ -120,6 +127,7 @@ void game()
   textFont(startfont);
   text("Score:"+score,40,500);
   text(lives+":Lives",600,500);
+ 
   
 
   

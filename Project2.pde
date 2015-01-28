@@ -93,7 +93,7 @@ void game()//main game
   background(0);
   stroke(255);
   noFill();
-  line(0,300,800,300);
+  line(0,300,800,300);// all the background drawings
   line(0,450,800,450);
   fill(150);
   rect(50,220,60,80,10,10,0,0);
@@ -125,35 +125,35 @@ void game()//main game
   fill(255,0,0);
   startfont = createFont("start.ttf",30);
   textFont(startfont);
-  text("Score:"+score,40,500);
+  text("Score:"+score,40,500);//dispalying the score
   text(lives+":Lives",600,500);
  
   
 
   
-  for(int i = 0;i <objects.size(); i++)
+  for(int i = 0;i <objects.size(); i++)//displaying objects
   {
     objects.get(i).move();
     objects.get(i).display();
     if (! objects.get(i).alive)
     {
-      objects.remove(i);
+      objects.remove(i);//removes objects
     }
   }
-  for(int i = 0 ; i < players.size()  ; i ++)
+  for(int i = 0 ; i < players.size()  ; i ++)//hit detection between player and zombies
   {
     Player player = players.get(i);
     for (int j = 0; j < zombies.size() ; j ++)
     {
-      Zombie zombie1 = zombies.get(j);
+      Zombie zombie1 = zombies.get(j);// we getting their distance in order to check for collision
       if (dist(player.position.x,player.position.y,zombie1.position.x,zombie1.position.y) <=10)
-      {
+      { 
         lives --;
         zombie1.touched();
       } 
     }
   }
-  for(int i = 0 ; i < players.size()  ; i ++)
+  for(int i = 0 ; i < players.size()  ; i ++)//hit detection
   {
     Player player = players.get(i);
     for (int j = 0; j < bigzombies.size() ; j ++)
@@ -166,7 +166,7 @@ void game()//main game
       } 
     }
   }
-  for(int i = 0 ; i < bullets.size()  ; i ++)
+  for(int i = 0 ; i < bullets.size()  ; i ++)//hit detection
   {
     Bullet bullet = bullets.get(i);
     println(bullet.position.x);
@@ -182,7 +182,7 @@ void game()//main game
       } 
     }
   }
-  for(int i = 0 ; i < bullets.size()  ; i ++)
+  for(int i = 0 ; i < bullets.size()  ; i ++)//hit detection
   {
     Bullet bullet = bullets.get(i);
     println(bullet.position.x);
@@ -198,7 +198,7 @@ void game()//main game
       } 
     }
   }
-  for(int i = 0 ; i < players.size()  ; i ++)
+  for(int i = 0 ; i < players.size()  ; i ++)//hit detection
   {
     Player player = players.get(i);
     for (int j = 0; j < healths.size() ; j ++)
@@ -211,11 +211,11 @@ void game()//main game
       } 
     }
   }
-  if(lives <= 0)
+  if(lives <= 0)// game over screen when there is no lies left
   {
     stage =5;
   }
-  if(frameCount % 300 == 0)
+  if(frameCount % 300 == 0)// creating zombies and lives every 5 seconds
   {
     BigZombie bigzombie = new BigZombie();
     objects.add(bigzombie);
@@ -233,7 +233,7 @@ void game()//main game
   
     
 }
-void splash()
+void splash() // main screen
 {
     background(0);
     theme.play(); 
@@ -261,7 +261,7 @@ void splash()
       }
     }
 }
-void help()
+void help()//help screen
 {
     background(0);
     startfont = createFont("start.ttf",30);

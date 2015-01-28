@@ -4,7 +4,7 @@ class BigZombie extends GameObjects
   
   BigZombie()
   {
-    position.x = (random(800,1200));
+    position.x = (random(800,1200));//zombie spawns
     position.y = random(350,350);
   }
   
@@ -12,7 +12,7 @@ class BigZombie extends GameObjects
   {
    
     position.add(velocity); 
-    if (position.x  > width || position.x > 0 )
+    if (position.x  > width || position.x > 0 )//movment of the zombie
     {
       velocity.x = -2;
     }
@@ -23,7 +23,7 @@ class BigZombie extends GameObjects
  
   }
   
-  void display()
+  void display()//displaying the zombie
   {
     pushMatrix();
     noStroke();
@@ -43,7 +43,7 @@ class BigZombie extends GameObjects
     popMatrix();
   }
   
-  void touched()
+  void touched()// when zombie touches the player or gets hit by a bulet we restet his position
   {
      position.x = (random(800,1200));
   }

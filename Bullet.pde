@@ -3,9 +3,9 @@ class Bullet extends GameObjects
 
   Bullet() 
   {
-    speed = 20;
+    speed = 20;//speed of the bullet
   }
-  void move()
+  void move()//movment of the bullet
   { 
     forward.x = -cos(theta)* speed;
     forward.y =  sin(theta)* speed;
@@ -16,21 +16,21 @@ class Bullet extends GameObjects
     {
       alive = true;
     }
-    else 
+    else //when vullet leaves the screen we set it false and we delete it in the game() function
     {
        alive = false;
        position.x = -100;
        position.y = -100;
     }
   }
-  void touched()
+  void touched()// when bullet touches the zombie we remove it and set the possition out of the screen as sometimes one bullet could kill 2 zombies
   {
     alive =false;
     position.x = -100;
     position.y = -100;
   }
   
-  void display()
+  void display()//displaying the bullet
   {
     pushMatrix();
     noStroke();
@@ -40,7 +40,7 @@ class Bullet extends GameObjects
     popMatrix();
   }
   
-  void explosion()
+  void explosion()//when bullet hits the zombie it creates mini explosion
   {
     explosion.play();
     explosion.rewind();

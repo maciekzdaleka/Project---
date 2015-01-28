@@ -11,15 +11,15 @@ class Player extends GameObjects
 
   Player(float x ,float y)
   {
-    position.x = x;
+    position.x = x;// position of the player
     position.y = y;
     theta = 0;
    }
 
   void display()
   {  
-    if(position.y < 340)
-    {
+    if(position.y < 340)// jumping of the player when up is not 0 we can applay jump speed and gravity to put the player down
+    {                  //  then we set up as 0 so the player will go down on the ground
         velocity.y += gravity;
         position.add(velocity);
         up = 0;
@@ -54,13 +54,13 @@ class Player extends GameObjects
      ellipse(hx+7,hy+6,5,5);
      ellipse(hx+24,hy+6,5,5);
      triangle(hx+10, hy+15, hx+15, hy+10, hx+20, hy+15);
-     rotate(theta);
+     rotate(theta);// theta is here to only rotate the positon.x not the whole sketch. I've used this for shooting direction
      popMatrix();
    }
 
     void move()
     {
-        if(position.x < 0 )
+        if(position.x < 0 )//keeps the player in the box
         {
           position.x = 1;
         }
@@ -75,9 +75,9 @@ class Player extends GameObjects
         switch(key)
         {
           case 'd':
-          position.add(forward);
-         leg = 10;
-         theta  =  179.07;
+          position.add(forward);//players go right
+         leg = 10;// leg animation
+         theta  =  179.07;// chaning the ditection of x
          hand = 30;
             break;
           case 'a':
@@ -87,15 +87,15 @@ class Player extends GameObjects
           hand = 0;
             break;
           case 'w':
-          jump.play();
+          jump.play();//jumps sounds
           jump.rewind();
           up = 1;
             break;
             case ' ':
-            if(alive == true)
+            if(alive == true)// creating a bullet
             { 
               Bullet bullet = new Bullet();
-              bullet.position = position.get();    
+              bullet.position = position.get(); //we getting the player position and set the bullet posiotion the same   
               bullet.theta = theta;
               objects.add(bullet);
               bullets.add(bullet);
@@ -104,7 +104,7 @@ class Player extends GameObjects
               shoot.play();
               shoot.rewind();
              }
-           if(alive == false)
+           if(alive == false)//fire rate
             {
               buletCounter ++;
               if(buletCounter == 10 )

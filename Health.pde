@@ -2,11 +2,11 @@ class Health extends GameObjects
 {
    Health()
    {
-      position.y = (random(-500,-50));  
+      position.y = (random(-500,-50));  //spawn points of the health
       position.x = (random(50,750)); 
    }
    
-   void display()
+   void display()//displaying the health box
    {
      pushMatrix();
      translate(position.x,position.y);
@@ -22,7 +22,7 @@ class Health extends GameObjects
      popMatrix(); 
    }
    
-   void move()
+   void move()// movment of the health box
    {
       position.add(velocity); 
       
@@ -30,7 +30,7 @@ class Health extends GameObjects
       {
         velocity.y = 2;
       }
-      if(position.y > 400)
+      if(position.y > 400)// when it hits the ground its automatically removed and we set new spawn points
       {
         alive = false;
         position.y = (random(-500,-50));  
@@ -38,7 +38,7 @@ class Health extends GameObjects
       }
    }
    
-   void touched()
+   void touched()//when the player touches it the program removes the object and set new spawn points.
    {
      health.play();
      health.rewind();

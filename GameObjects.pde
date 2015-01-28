@@ -10,7 +10,6 @@ class GameObjects
  float hx = 20;
  float hy = 20;
  
- 
    GameObjects()
   {
    alive=true;

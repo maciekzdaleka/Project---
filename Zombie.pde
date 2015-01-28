@@ -1,6 +1,6 @@
 class Zombie extends GameObjects
 {
-  Zombie()
+  Zombie()// this works the same as the bigzombie 
   {
     position.x = (random(-500,-50));
     position.y = random(350,350);

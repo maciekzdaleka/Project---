@@ -3,34 +3,47 @@ PFont startfont;
 PFont normalfont;
 PImage gameplan;
 import ddf.minim.*;
-int zcount = 4;
+int score = 0;
+int lives = 3;
 
 
 
 ArrayList<GameObjects> objects = new ArrayList<GameObjects>();
-ArrayList<Bullet> bullets;
-ArrayList<Player> players;
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+ArrayList<Player> players = new ArrayList<Player>();
+ArrayList<Zombie> zombies = new ArrayList<Zombie>();
+ArrayList<BigZombie> bigzombies = new ArrayList<BigZombie>();
+ArrayList<Health> healths = new ArrayList<Health>();
 
 
 Minim minim;
 AudioPlayer theme;
 AudioPlayer game;
 AudioPlayer jump;
+AudioPlayer explosion;
+AudioPlayer gameover;
+AudioPlayer shoot;
+AudioPlayer health;
 
 void setup()
 {
   size(800,600);
   frameRate(60);
   stage = 1;
-  objects.add(new Player(300,300));
-  for(int i = 0; i < zcount; i++)
+  for( int i = 0 ; i<1; i++)
   {
-    objects.add(new Zombie());
+     Player player = new Player(400,300);
+     objects.add(player);
+     players.add(player);
   }
   minim = new Minim(this);
   theme = minim.loadFile("theme.mp3");
   game = minim.loadFile("game.mp3");
   jump = minim.loadFile("Jump.wav");
+  explosion = minim.loadFile("explosion.wav");
+  gameover = minim.loadFile("gameover.mp3");
+  shoot = minim.loadFile("shoot.wav");
+  health = minim.loadFile("health.wav");
   smooth();
 }
 
@@ -50,8 +63,36 @@ void draw()
     case 4:
       help();
       break;
+    case 5:
+      gameover();
+      break;
    }
 
+}
+void gameover()
+{
+  game.pause();
+  gameover.play();
+  fill(255,0,0);
+  background(0);
+  startfont = createFont("start.ttf",40);
+  textFont(startfont);
+  text("Game Over :(",200,250);
+  text("Score:"+score,250,350);
+  if(keyPressed)
+    {
+      if(key == 'b')
+      {
+        stage = 1;
+        lives = 3;
+        score = 0;
+      }
+      else
+      {
+        stage = 5;
+      }
+    }
+  
 }
 
 void game()
@@ -84,9 +125,15 @@ void game()
   ellipse(600,100,100,100);
   fill(0);
   ellipse(570,100,100,100);
-  fill(102,51,0);
+  fill(102,51,0,50);
   rect(0,451,800,149);
+  fill(255,0,0);
+  startfont = createFont("start.ttf",30);
+  textFont(startfont);
+  text("Score:"+score,40,500);
+  text(lives+":Lives",600,500);
   
+
   
   for(int i = 0;i <objects.size(); i++)
   {
@@ -96,16 +143,100 @@ void game()
     {
       objects.remove(i);
     }
-    //if(bullets.intersect(zombies))
-    //{
-    //  zombie.touched();
-   // }
+  }
+  for(int i = 0 ; i < players.size()  ; i ++)
+  {
+    Player player = players.get(i);
+    for (int j = 0; j < zombies.size() ; j ++)
+    {
+      Zombie zombie1 = zombies.get(j);
+      if (dist(player.position.x,player.position.y,zombie1.position.x,zombie1.position.y) <=10)
+      {
+        lives --;
+        zombie1.touched();
+      } 
+    }
+  }
+  for(int i = 0 ; i < players.size()  ; i ++)
+  {
+    Player player = players.get(i);
+    for (int j = 0; j < bigzombies.size() ; j ++)
+    {
+      BigZombie zombie1 = bigzombies.get(j);
+      if (dist(player.position.x,player.position.y,zombie1.position.x,zombie1.position.y) <=60)
+      {
+        lives --;
+        zombie1.touched();
+      } 
+    }
+  }
+  for(int i = 0 ; i < bullets.size()  ; i ++)
+  {
+    Bullet bullet = bullets.get(i);
+    println(bullet.position.x);
+    for (int j = 0; j < zombies.size() ; j ++)
+    {
+      Zombie zombie1 = zombies.get(j);
+      if (dist(bullet.position.x,bullet.position.y,zombie1.position.x,zombie1.position.y) <=20)
+      {
+        score++;
+        bullet.explosion();
+        bullet.touched();
+        zombie1.touched();
+      } 
+    }
+  }
+  for(int i = 0 ; i < bullets.size()  ; i ++)
+  {
+    Bullet bullet = bullets.get(i);
+    println(bullet.position.x);
+    for (int j = 0; j < zombies.size() ; j ++)
+    {
+      BigZombie zombie1 = bigzombies.get(j);
+      if (dist(bullet.position.x,bullet.position.y,zombie1.position.x,zombie1.position.y) <=20)
+      {
+        score++;
+        bullet.explosion();
+        bullet.touched();
+        zombie1.touched();
+      } 
+    }
+  }
+  for(int i = 0 ; i < players.size()  ; i ++)
+  {
+    Player player = players.get(i);
+    for (int j = 0; j < healths.size() ; j ++)
+    {
+      Health health = healths.get(j);
+      if (dist(player.position.x,player.position.y,health.position.x,health.position.y) <= 40)
+      {
+        lives = lives +1 ;
+        health.touched();
+      } 
+    }
+  }
+  if(lives <= 0)
+  {
+    stage =5;
+  }
+  if(frameCount % 300 == 0)
+  {
+    BigZombie bigzombie = new BigZombie();
+    objects.add(bigzombie);
+    bigzombies.add(bigzombie);
     
+    Health health = new Health();
+    objects.add(health);
+    healths.add(health);
+    
+    Zombie zombie = new Zombie();
+    objects.add(zombie);
+    zombies.add(zombie);
   }
 
+  
     
 }
-
 void splash()
 {
     background(0);

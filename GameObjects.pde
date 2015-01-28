@@ -2,17 +2,15 @@ class GameObjects
 {
  float x , y;
  boolean alive;
- boolean alivee;
  PVector position;
  PVector velocity;
  PVector forward;
- boolean fireDirection;
  float theta;
  float speed;
  float hx = 20;
  float hy = 20;
  boolean offset;
- 
+ boolean reset;
  
    GameObjects()
   {

@@ -1,9 +1,10 @@
-class Zombie extends GameObjects
+class BigZombie extends GameObjects
 {
   
-  Zombie()
+  
+  BigZombie()
   {
-    position.x = (random(-500,-50));
+    position.x = (random(800,1200));
     position.y = random(350,350);
   }
   
@@ -12,13 +13,17 @@ class Zombie extends GameObjects
   {
    
    position.add(velocity); 
-      if (position.x  < width || position.x < 0 )
+      if (position.x  > width || position.x > 0 )
     {
-      velocity.x = 2;
+      velocity.x = -2;
     }
-    if(position.x > 800)
+    if(position.x < -10)
     {
-      position.x = (random(-500,-50));  
+      position.x = (random(800,1200))+100;  
+    }
+    if(lives == 0)
+    {
+      reset = true;
     }
     
   }
@@ -35,7 +40,7 @@ class Zombie extends GameObjects
     rect(7,7,5,5);
     rect(20,7,5,5);
     rect(12,20,7,5);
-    fill(0,255,0);
+    fill(random(0,255),random(0,255),random(0,255));
     rect(10,30,10,50);
     rect(0,40,10,10);
     rect(20,40,10,10);
@@ -45,7 +50,9 @@ class Zombie extends GameObjects
   }
    void touched()
    {
-     position.x = (random(-500,-50));
+     position.x = (random(800,1200));
    }
 
 }
+  
+

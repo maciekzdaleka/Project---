@@ -1,13 +1,13 @@
 class Player extends GameObjects
 {
-  
-  float direction;
+
   float gravity = .5;
   float jumpSpeed = 11;
   float up;
   float buletCounter;
   boolean alive = true;
   float hand;
+  float leg;
 
   Player(float x ,float y)
   {
@@ -45,8 +45,10 @@ void display()
    triangle(hx+20, hy, hx+25, hy- 10, hx+30, hy);
    stroke(255);
    line(hx+15,hy+20,hx+15,(hy+20)+35);
-   line(hx+15,hy+55,hx,hy+80);
-   line(hx+15,hy+55,hx+30,hy+80);
+   line(hx+15,hy+55,hx,hy+80); 
+   line(hx,hy+80,hx+leg,hy+80);//left leg
+   line(hx+15,hy+55,hx+30,hy+80); //right leg
+   line(hx+30,hy+80,hx+30+leg,hy+80);
    line(hx+15,hy+40,hx+hand,hy+30);
    fill(0,0,255);
    ellipse(hx+7,hy+6,5,5);
@@ -57,17 +59,6 @@ void display()
     popMatrix();
 }
 
-  boolean intersect(Zombie s)
-  {
-  if (s.position.x < position.x ) {return false;}
-  if (s.position.x > position.x){ return false;}
-  if (s.position.y +80 < position.y ){ return false;}
-  if (s.position.y > position.y + 80){ return false;}
-  else
-  {
-     return true;
-  }
- }
 void move()
 {
 
@@ -78,15 +69,13 @@ forward.x = 5;
     {
       case 'd':
       position.add(forward);
-      direction = -1;
-     fireDirection = true;
+     leg = 10;
      theta  =  179.07;
      hand = 30;
         break;
       case 'a':
       position.sub(forward);
-      direction = 1;
-      fireDirection = false;
+      leg = -10;
       theta = 0;
       hand = 0;
         break;
@@ -102,8 +91,11 @@ forward.x = 5;
           bullet.position = position.get();    
           bullet.theta = theta;
           objects.add(bullet);
+          bullets.add(bullet);
           alive =false;
           buletCounter = 0;
+          shoot.play();
+          shoot.rewind();
        if (position.x  > 0 && position.x  < width && position.y > 0 && position.x  < height) {
             offset= true;
        }
